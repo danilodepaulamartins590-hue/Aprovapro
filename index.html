@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1735">
+<title>AprovaPro • Plataforma de Estudos para Concursos</title>
+<style>
+:root{
+ --nav:#0a1530;--nav2:#102044;--blue:#2563eb;--cyan:#0ea5e9;--bg:#f4f7fb;--card:#fff;
+ --text:#132039;--muted:#6b7890;--line:#e5eaf2;--ok:#16a36f;--warn:#f59e0b;--danger:#ef5350;
+ --shadow:0 12px 35px rgba(16,35,70,.08);--r:18px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{min-height:100vh}.sidebar{position:fixed;z-index:20;inset:0 auto 0 0;width:268px;background:linear-gradient(180deg,var(--nav),#071128);color:#fff;padding:18px 14px;overflow:auto}
+.brand{display:flex;align-items:center;gap:11px;padding:8px 9px 23px}.brandmark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-weight:950;font-size:20px;background:linear-gradient(135deg,#2f80ff,#00c2ff);box-shadow:0 8px 22px #0004}.brand b{font-size:20px}.brand small{display:block;color:#9eb0cf;font-size:10px;margin-top:2px}
+.section-label{color:#6f82a7;font-size:10px;font-weight:850;letter-spacing:.12em;padding:16px 12px 7px}.nav{display:grid;gap:4px}.nav button{border:0;background:transparent;color:#b7c4dc;text-align:left;padding:11px 12px;border-radius:11px;font-weight:700;display:flex;align-items:center;gap:11px}.nav button:hover,.nav button.active{background:#ffffff12;color:#fff}.nav button.active{box-shadow:inset 3px 0 #42a5ff}.ico{width:22px;text-align:center}
+.side-card{margin:18px 3px;background:linear-gradient(135deg,#164eaa,#1478db);border-radius:15px;padding:14px}.side-card b{font-size:13px}.side-card p{font-size:11px;color:#dbeaff;margin:5px 0 11px}.mini-progress{height:6px;background:#ffffff2b;border-radius:20px}.mini-progress i{display:block;height:100%;width:63%;background:#fff;border-radius:20px}
+.user{margin-top:15px;padding:10px;border-radius:12px;background:#ffffff0c;display:flex;align-items:center;gap:9px}.ava{width:36px;height:36px;border-radius:50%;background:#dbeafe;color:#1550a4;display:grid;place-items:center;font-weight:900}.user small{color:#9fb0ca}
+.main{margin-left:268px;min-height:100vh;padding:18px 28px 45px}.top{height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.search{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);height:43px;border-radius:12px;padding:0 13px;width:min(470px,52vw);box-shadow:0 3px 12px #10204408}.search input{border:0;outline:0;width:100%;background:transparent}.topright{display:flex;align-items:center;gap:9px}.circle{width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:12px}.avatar{width:42px;height:42px;border-radius:50%;background:#dbeafe;color:#174ea6;display:grid;place-items:center;font-weight:900}
+.page{display:none;animation:in .22s ease}.page.active{display:block}@keyframes in{from{opacity:.3;transform:translateY(4px)}to{opacity:1;transform:none}}
+.hero{border-radius:22px;color:#fff;padding:27px;display:flex;justify-content:space-between;gap:25px;position:relative;overflow:hidden;background:radial-gradient(circle at 90% 10%,#4f9cff66 0 12%,transparent 13%),linear-gradient(115deg,#0b3b91,#1769e8 72%,#168eea)}
+.hero:before{content:"";position:absolute;width:300px;height:300px;border:1px solid #ffffff1e;border-radius:50%;right:-90px;bottom:-170px}.eyebrow{font-size:10px;letter-spacing:.1em;font-weight:900;color:#d5e5ff}.hero h1{margin:7px 0 7px;font-size:29px}.hero p{margin:0;color:#dbe9ff;max-width:650px}.heroBtns{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800}.primary{background:var(--blue);color:#fff}.white{background:#fff;color:#1851aa}.ghost{background:#eef4ff;color:#1b55b5}.dark{background:#0d1b38;color:#fff}.heroStat{min-width:210px;align-self:center;position:relative;z-index:1}.heroStat .big{font-size:34px;font-weight:950}.bar{height:8px;background:#e9eef5;border-radius:20px;overflow:hidden}.bar i{height:100%;display:block;border-radius:20px;background:linear-gradient(90deg,#1d68eb,#21b4ff)}
+.grid{display:grid;gap:15px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1.3fr .8fr}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}.stat{min-height:112px;display:flex;justify-content:space-between}.label{color:var(--muted);font-size:12px}.num{font-size:28px;font-weight:950;margin-top:5px}.up{color:var(--ok);font-size:11px;font-weight:800;margin-top:5px}.section{display:flex;justify-content:space-between;align-items:center;margin:23px 0 11px}.section h2{font-size:18px;margin:0}.link{border:0;background:none;color:var(--blue);font-weight:800;font-size:12px}.course{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.course:last-child{border:0}.courseIcon{width:49px;height:49px;border-radius:13px;display:grid;place-items:center;background:#edf4ff;color:#1c58b6;font-weight:950}.courseMain{flex:1}.courseMain b{font-size:14px}.courseMain small{display:block;color:var(--muted);margin:3px 0 7px}.pct{font-size:11px;color:var(--muted);font-weight:800}
+.task{display:flex;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}.task:last-child{border:0}.check{width:22px;height:22px;border:2px solid #c9d2e0;border-radius:7px;background:#fff}.task.done .check{background:var(--ok);border-color:var(--ok);color:#fff}.task.done b{text-decoration:line-through;color:#8b96a8}
+.badge{display:inline-flex;align-items:center;padding:5px 8px;border-radius:7px;font-size:10px;font-weight:900;background:#eaf2ff;color:#2058ad}.ok{background:#e8f8f1;color:#137955}.orange{background:#fff3df;color:#ad6711}.red{background:#ffebeb;color:#bd3e3e}
+.kpi{display:flex;justify-content:space-between;align-items:center}.donut{width:95px;height:95px;border-radius:50%;background:conic-gradient(#2468e8 0 78%,#e9eef5 78%);display:grid;place-items:center}.donut:after{content:"78%";width:68px;height:68px;border-radius:50%;background:#fff;display:grid;place-items:center;font-weight:950}
+.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:14px}.tab{border:1px solid var(--line);background:#fff;padding:9px 12px;border-radius:9px;font-size:12px;font-weight:800;white-space:nowrap}.tab.active{background:#eaf2ff;border-color:#b8cef6;color:#1757b6}.filters{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:9px;margin-bottom:14px}.input,select,textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 11px;outline:0}.question{font-size:15px;line-height:1.6;margin:13px 0 17px}.option{width:100%;text-align:left;background:#fff;border:1px solid var(--line);padding:12px;border-radius:10px;margin:6px 0}.option:hover{border-color:#91b1e9;background:#f7faff}.option.good{border-color:#42aa80;background:#effaf5}.option.bad{border-color:#e56f6f;background:#fff1f1}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid var(--line);padding:12px 8px;font-size:12px}th{color:var(--muted)}
+.chart{height:190px;display:flex;align-items:end;gap:9px;padding:20px 8px 0}.col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:end}.col i{display:block;width:100%;max-width:36px;background:linear-gradient(180deg,#45a8ff,#2363dd);border-radius:7px 7px 2px 2px}.col small{font-size:10px;color:var(--muted)}
+.timer{font-size:52px;font-weight:950;text-align:center;margin:15px 0}.timerActions{display:flex;justify-content:center;gap:8px}
+.chat{height:320px;overflow:auto;padding:5px}.msg{max-width:78%;padding:11px 13px;border-radius:13px;margin:8px 0;font-size:13px;line-height:1.5}.ai{background:#eaf2ff}.me{background:#e9f8f1;margin-left:auto}.chatbar{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.modal{position:fixed;inset:0;background:#071128aa;display:none;align-items:center;justify-content:center;z-index:50;padding:20px}.modal.open{display:flex}.modalBox{background:#fff;border-radius:20px;width:min(620px,100%);padding:22px;box-shadow:0 25px 80px #0005}.close{float:right;border:0;background:#eef2f7;border-radius:9px;width:35px;height:35px}
+.footer{text-align:center;color:#8995a9;font-size:11px;margin-top:34px}
+@media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}}
+@media(max-width:760px){.hero{padding:20px}.heroStat{display:none}.top{margin-bottom:14px}.g4,.g3{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.filters .btn{grid-column:1/-1}.hero h1{font-size:23px}}
+
+/* Correções de navegação e responsividade */
+.side-overlay{display:none;position:fixed;inset:0;background:rgba(3,10,25,.58);z-index:18}
+.mobile-menu{display:none;position:fixed;z-index:30;left:12px;top:12px;width:44px;height:44px;border:0;border-radius:12px;background:#0a1530;color:#fff;font-size:21px;box-shadow:0 8px 24px #0003}
+.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+.calendar-head h3{margin:0;text-transform:capitalize}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+.calendar-grid .dow{text-align:center;color:var(--muted);font-size:11px;font-weight:900;padding:8px 0}
+.day{min-height:82px;border:1px solid var(--line);border-radius:11px;background:#fff;padding:8px;font-size:12px;position:relative}
+.day.muted-day{opacity:.45;background:#fafbfd}.day.today{border:2px solid #2b6fe8;background:#f3f7ff}.day b{font-size:12px}
+.event{display:block;margin-top:7px;padding:4px 5px;border-radius:6px;background:#eaf2ff;color:#1757b6;font-size:9px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.event.green{background:#e8f8f1;color:#137955}.event.orange{background:#fff3df;color:#ad6711}
+@media(max-width:760px){
+  .sidebar{transform:translateX(-105%);transition:transform .22s ease;width:275px;padding:18px 14px;box-shadow:20px 0 50px #0005}
+  .sidebar.open{transform:translateX(0)}
+  .side-overlay.open{display:block}
+  .mobile-menu{display:block}
+  .main{margin-left:0;width:100%;padding:70px 14px 35px}
+  .top{padding-left:45px}
+  .search{width:100%;max-width:none}
+  .topright .circle:first-child{display:none}
+  .brand>div:last-child,.nav span,.section-label,.side-card,.user div:not(.ava){display:block}
+  .nav button{justify-content:flex-start}
+  .calendar-grid{gap:4px}.day{min-height:65px;padding:6px 5px}.event{font-size:8px}
+}
+@media(min-width:761px){
+  .sidebar{transform:translateX(0)!important}
+}
+
+
+.upload-zone{border:2px dashed #b9c9e5;border-radius:17px;padding:34px 20px;text-align:center;background:#f8fbff;transition:.2s}.upload-zone.drag{border-color:#2468e8;background:#eef5ff}.upload-icon{width:58px;height:58px;margin:0 auto 12px;border-radius:15px;display:grid;place-items:center;background:#eaf2ff;color:#1d5bc0;font-weight:950}.empty{padding:18px 0;color:var(--muted);line-height:1.6}.ai-action{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:11px;padding:12px;margin:8px 0;font-weight:800;color:var(--text)}.ai-action:hover{border-color:#9bb8e9;background:#f7faff}
+
+.plan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.plan-card{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fff;box-shadow:0 5px 18px rgba(20,50,100,.04)}.plan-card h3{margin:0 0 10px;color:#123f86}.plan-content{display:grid;gap:7px}.plan-item{padding:9px 10px;border-radius:9px;background:#f7faff;line-height:1.45;font-size:14px}.plan-card:first-child{grid-column:1/-1}.btn:disabled{opacity:.65;cursor:wait}.darkmode{--bg:#0b1220;--card:#111b2e;--text:#eef4ff;--muted:#a7b3c7;--line:#263550}.darkmode .search,.darkmode .input,.darkmode select,.darkmode textarea,.darkmode .card,.darkmode .day,.darkmode .option,.darkmode .tab,.darkmode .ai-action,.darkmode .modalBox{background:#111b2e;color:#eef4ff;border-color:#263550}.darkmode .task,.darkmode .course{border-color:#263550}.darkmode .bar{background:#263550}.darkmode .donut:after{background:#111b2e}.darkmode .plan-item{background:#17243a}.darkmode .upload-zone{background:#101c30;border-color:#36517d}@media(max-width:800px){.plan-grid{grid-template-columns:1fr}.plan-card:first-child{grid-column:auto}}.prep-list{display:grid;gap:8px;margin-top:12px}.prep-item{display:flex;align-items:flex-start;gap:9px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fafcff}.prep-dot{width:8px;height:8px;border-radius:50%;background:#2563eb;margin-top:6px;flex:0 0 auto}.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:6px}.status-dot.ok{background:#16a36f}
+/* APROVAPRO V7 — camada profissional */
+:root{--accent:#2563eb;--accent2:#0ea5e9;--soft:#eff6ff;--focus:#111827}
+body{background:linear-gradient(180deg,#f7f9fc 0,#f3f6fb 100%)}
+.sidebar{box-shadow:8px 0 35px rgba(8,24,55,.08)}
+.nav button{transition:.18s ease}.nav button:hover{transform:translateX(2px)}
+.card{transition:transform .18s ease,box-shadow .18s ease}.card:hover{box-shadow:0 16px 42px rgba(16,35,70,.10)}
+.hero{box-shadow:0 18px 45px rgba(21,91,190,.20)}
+.smart-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:15px}
+.smart-item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.smart-item b{display:block;font-size:13px}.smart-item span{font-size:11px;color:var(--muted)}
+.priority{display:flex;gap:8px;align-items:center;margin:10px 0;padding:10px;border-radius:11px;background:#f8fafc}.dot{width:9px;height:9px;border-radius:50%;background:#2563eb}.dot.warn{background:#f59e0b}.dot.red{background:#ef5350}
+.plan-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}.plan-card{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fff}.plan-card h3{margin:5px 0 4px;font-size:15px}.plan-card p{margin:0;color:var(--muted);font-size:11px}.topic{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #edf0f5;font-size:12px}.topic:last-child{border-bottom:0}.setup-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:15px}.field{margin-top:11px}.field label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px}
+.ai-action{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:11px;padding:12px;margin:8px 0;font-weight:800;transition:.16s}.ai-action:hover{border-color:#9ab7e8;background:#f7faff;transform:translateY(-1px)}
+.empty{border:1px dashed #cfd8e6;border-radius:14px;padding:22px;text-align:center;color:var(--muted);background:#fbfcfe}.toast{position:fixed;right:20px;bottom:20px;z-index:100;background:#0d1b38;color:#fff;padding:13px 16px;border-radius:12px;box-shadow:0 12px 35px #0004;font-weight:800;font-size:13px;max-width:380px}
+@media(max-width:900px){.smart-strip,.setup-grid{grid-template-columns:1fr 1fr}.plan-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.smart-strip{grid-template-columns:1fr}.main{padding:15px 14px 35px}.search{width:calc(100vw - 95px)}.topright .circle{display:none}}
+.darkmode{--bg:#0b1220;--card:#111a2c;--text:#edf3ff;--muted:#9baccc;--line:#24324a}.darkmode .card,.darkmode .search,.darkmode .input,.darkmode select,.darkmode textarea,.darkmode .option,.darkmode .tab,.darkmode .ai-action{background:#111a2c;color:#edf3ff;border-color:#24324a}.darkmode .label,.darkmode th{color:#9bac c8}.darkmode .hero{box-shadow:none}
+
+</style>
+</head>
+<body>
+<div id="sideOverlay" class="side-overlay" onclick="closeSidebar()"></div>
+<button id="mobileMenu" class="mobile-menu" aria-label="Abrir menu" onclick="openSidebar()">☰</button>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">A</div><div><b>AprovaPro</b><small>CONCURSOS & CARREIRAS</small></div></div>
+  <div class="section-label">PLATAFORMA</div>
+  <nav class="nav">
+    <button class="active" data-go="dashboard"><span class="ico">⌂</span><span>Dashboard</span></button>
+    <button data-go="cursos"><span class="ico">▣</span><span>Meus cursos</span></button>
+    <button data-go="questoes"><span class="ico">✓</span><span>Banco de questões</span></button>
+    <button data-go="simulados"><span class="ico">◈</span><span>Simulados</span></button>
+    <button data-go="cronograma"><span class="ico">□</span><span>Cronograma</span></button>
+    <button data-go="calendario"><span class="ico">▦</span><span>Calendário</span></button>
+    <button data-go="desempenho"><span class="ico">↗</span><span>Desempenho</span></button>
+    <button data-go="materiais"><span class="ico">▤</span><span>Materiais</span></button>
+    <button data-go="edital"><span class="ico">⌑</span><span>Meu edital</span></button>
+    <button data-go="ia"><span class="ico">✦</span><span>Professor IA</span></button>
+  </nav>
+  <div class="section-label">FERRAMENTAS</div>
+  <nav class="nav">
+    <button onclick="openModal()"><span class="ico">⚙</span><span>Meu concurso</span></button>
+    <button onclick="toggleTheme()"><span class="ico">◐</span><span>Modo escuro</span></button>
+  </nav>
+  <div class="side-card"><b>Meta da semana</b><p>Você já completou 72% da sua meta.</p><div class="mini-progress"><i></i></div></div>
+  <div class="user"><div class="ava">DM</div><div><b style="font-size:12px">Danilo</b><br><small>Aluno • GCM</small></div></div>
+</aside>
+
+<main class="main">
+<header class="top">
+  <div class="search">⌕ <input id="search" placeholder="Buscar aula, questão, material..."></div>
+  <div class="topright"><button class="circle" onclick="notify()">♢</button><button class="circle" onclick="startTimer()">⏱</button><div class="avatar">DM</div></div>
+</header>
+
+<section id="dashboard" class="page active">
+  <div class="hero">
+    <div><div class="eyebrow">PAINEL DO ALUNO</div><h1>Bom estudo, Danilo. Vamos buscar a aprovação? 🚀</h1><p>Seu plano de estudos, questões, simulados e desempenho estão organizados aqui.</p>
+    <div class="heroBtns"><button class="btn white" onclick="go('questoes')">Resolver questões</button><button class="btn" style="background:#0a3b91;color:#fff" onclick="go('cronograma')">Abrir cronograma</button></div></div>
+    <div class="heroStat"><span style="color:#dceaff;font-size:12px">PROGRESSO DO EDITAL</span><div class="big">63%</div><div class="bar"><i style="width:63%;background:#fff"></i></div><small style="color:#dceaff">31 de 49 tópicos estudados</small></div>
+  </div>
+
+  <div class="smart-strip">
+    <div class="smart-item"><b>🎯 Próximo foco</b><span id="smartFocus">Anexe o edital para definir</span></div>
+    <div class="smart-item"><b>⏱ Tempo de hoje</b><span id="smartTime">0 min planejados</span></div>
+    <div class="smart-item"><b>📝 Questões de hoje</b><span id="smartQuestions">0 de 30 concluídas</span></div>
+    <div class="smart-item"><b>🔄 Revisões</b><span id="smartReviews">Nenhuma pendente</span></div>
+  </div>
+
+  <div class="grid g4" style="margin-top:16px">
+    <div class="card stat"><div><div class="label">Questões resolvidas</div><div class="num">428</div><div class="up">↑ 18% esta semana</div></div><b>✓</b></div>
+    <div class="card stat"><div><div class="label">Taxa de acerto</div><div class="num">78%</div><div class="up">↑ 4,2 pontos</div></div><b>◎</b></div>
+    <div class="card stat"><div><div class="label">Horas estudadas</div><div class="num">31h</div><div class="up">↑ 6h na semana</div></div><b>◷</b></div>
+    <div class="card stat"><div><div class="label">Sequência</div><div class="num">12 dias</div><div class="up">🔥 Continue!</div></div><b>★</b></div>
+  </div>
+
+  <div class="section"><h2>Continue de onde parou</h2><button class="link" onclick="go('cursos')">Ver todos os cursos →</button></div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="course"><div class="courseIcon">DP</div><div class="courseMain"><b>Direito Penal</b><small>Parte Geral • Aula 12</small><div class="bar"><i style="width:68%"></i></div></div><span class="pct">68%</span></div>
+      <div class="course"><div class="courseIcon">LP</div><div class="courseMain"><b>Língua Portuguesa</b><small>Interpretação de texto • Aula 8</small><div class="bar"><i style="width:51%"></i></div></div><span class="pct">51%</span></div>
+      <div class="course"><div class="courseIcon">GCM</div><div class="courseMain"><b>Legislação de Guardas</b><small>Lei 13.022/2014 • Aula 6</small><div class="bar"><i style="width:74%"></i></div></div><span class="pct">74%</span></div>
+    </div>
+    <div class="card">
+      <div class="section" style="margin:0 0 5px"><h2>Plano de hoje</h2><span class="badge ok">4 tarefas</span></div>
+      <div class="task" onclick="doneTask(this)"><button class="check"></button><div><b>Português</b><div class="label">30 questões • 40 min</div></div></div>
+      <div class="task" onclick="doneTask(this)"><button class="check"></button><div><b>Direito Penal</b><div class="label">Lei seca • 45 min</div></div></div>
+      <div class="task" onclick="doneTask(this)"><button class="check"></button><div><b>Legislação GCM</b><div class="label">Revisão • 35 min</div></div></div>
+      <div class="task" onclick="doneTask(this)"><button class="check"></button><div><b>Simulado</b><div class="label">20 questões • 30 min</div></div></div>
+    </div>
+  </div>
+
+  <div class="section"><h2>Seu desempenho</h2><button class="link" onclick="go('desempenho')">Análise completa →</button></div>
+  <div class="grid g3">
+    <div class="card"><div class="kpi"><div><div class="label">Aproveitamento geral</div><div class="num">78%</div><div class="up">↑ evolução</div></div><div class="donut"></div></div></div>
+    <div class="card"><b>Desempenho por matéria</b><div style="margin-top:14px"><div class="label">Legislação <b style="float:right">86%</b></div><div class="bar" style="margin-top:5px"><i style="width:86%"></i></div></div><div style="margin-top:12px"><div class="label">Penal <b style="float:right">81%</b></div><div class="bar" style="margin-top:5px"><i style="width:81%"></i></div></div><div style="margin-top:12px"><div class="label">Português <b style="float:right">74%</b></div><div class="bar" style="margin-top:5px"><i style="width:74%"></i></div></div></div>
+    <div class="card"><b>Próximo marco</b><p style="font-size:25px;font-weight:950;margin:10px 0">500 questões</p><div class="label">Faltam 72 questões para sua meta.</div><div class="bar" style="margin-top:12px"><i style="width:86%"></i></div><button class="btn ghost" style="margin-top:14px" onclick="go('questoes')">Continuar</button></div>
+  </div>
+<section class="section"><h2>Minha preparação</h2><button class="link" onclick="go('edital')">Gerenciar edital →</button></section>
+<div class="grid g2"><div class="card" id="dashboardEditalCard"><span class="badge">EDITAL</span><h3 id="dashboardEditalName">Nenhum edital conectado</h3><p class="label" id="dashboardEditalText">Anexe seu edital para o Professor IA transformar o conteúdo em uma preparação organizada.</p><button class="btn primary" onclick="go('edital')">Anexar / organizar edital</button></div><div class="card"><div class="kpi"><div><div class="label">Plano automático</div><div class="num" id="planStatus">0%</div><div class="label">organizado</div></div><div class="donut" id="planDonut"></div></div><p class="label" style="margin:10px 0 0">O percentual é atualizado quando o plano do edital é gerado e quando você conclui tarefas.</p></div></div>
+
+</section>
+
+<section id="cursos" class="page">
+<div class="section"><h2>Meus cursos</h2><button class="btn primary" onclick="alert('Área de cadastro de cursos pronta para receber um backend.')">＋ Novo curso</button></div>
+<div class="grid g3">
+<div class="card"><span class="badge">DIREITO</span><h3>Direito Penal</h3><p class="label">42 aulas • 18h de conteúdo</p><div class="bar"><i style="width:68%"></i></div><p class="label">68% concluído</p><button class="btn ghost" onclick="alert('Abrindo curso: Direito Penal')">Continuar curso</button></div>
+<div class="card"><span class="badge">BASE</span><h3>Língua Portuguesa</h3><p class="label">36 aulas • 14h de conteúdo</p><div class="bar"><i style="width:51%"></i></div><p class="label">51% concluído</p><button class="btn ghost">Continuar curso</button></div>
+<div class="card"><span class="badge">LEGISLAÇÃO</span><h3>Guardas Municipais</h3><p class="label">28 aulas • 11h de conteúdo</p><div class="bar"><i style="width:74%"></i></div><p class="label">74% concluído</p><button class="btn ghost">Continuar curso</button></div>
+</div></section>
+
+
+<section id="questoes" class="page">
+<div class="section"><h2>Banco de questões</h2><span class="badge ok">Modo treino</span></div>
+<div class="card">
+<div class="filters"><select><option>Todas as matérias</option><option>Português</option><option>Direito Penal</option><option>Legislação</option></select><select><option>Todas as bancas</option><option>Fafipa</option><option>Omni</option></select><select><option>Todos os níveis</option><option>Fácil</option><option>Médio</option><option>Difícil</option></select><button class="btn primary" onclick="newQuestion()">Filtrar</button></div>
+<div class="tabs"><button class="tab active">Questão 1</button><button class="tab">Erros</button><button class="tab">Favoritas</button><button class="tab">Não resolvidas</button></div>
+<div class="label">DIREITO PENAL • PRINCÍPIOS • NÍVEL MÉDIO</div>
+<div class="question"><b>Considerando os princípios aplicáveis ao Direito Penal, assinale a alternativa correta.</b><br><br>O princípio que impede a criação de crimes e penas sem previsão legal anterior é denominado:</div>
+<div id="options"><button class="option" onclick="answer(this,false)">A) princípio da insignificância</button><button class="option" onclick="answer(this,true)">B) princípio da legalidade</button><button class="option" onclick="answer(this,false)">C) princípio da ofensividade</button><button class="option" onclick="answer(this,false)">D) princípio da culpabilidade</button></div>
+<div id="feedback" style="margin:13px 0;font-weight:850"></div><button class="btn primary" onclick="nextQ()">Responder e próxima →</button>
+</div></section>
+
+<section id="simulados" class="page">
+<div class="section"><h2>Central de simulados</h2><button class="btn primary" onclick="startSimulado()">▶ Novo simulado</button></div>
+<div class="grid g3"><div class="card"><span class="badge">GCM</span><h3>Simulado Completo</h3><p class="label">50 questões • 4h</p><p>Português, legislação, penal e conhecimentos gerais.</p><button class="btn primary" onclick="startSimulado()">Começar</button></div><div class="card"><span class="badge">FAFIPA</span><h3>Treino de banca</h3><p class="label">30 questões • 90 min</p><p>Questões no formato da prova.</p><button class="btn ghost">Começar</button></div><div class="card"><span class="badge orange">REVISÃO</span><h3>Simulado de erros</h3><p class="label">20 questões</p><p>Reforce os assuntos que mais exigem atenção.</p><button class="btn ghost">Começar</button></div></div>
+<div class="section"><h2>Histórico</h2></div><div class="card"><table><tr><th>Simulado</th><th>Questões</th><th>Acertos</th><th>Data</th><th>Status</th></tr><tr><td>GCM Mandaguari #01</td><td>50</td><td>39 (78%)</td><td>Hoje</td><td><span class="badge ok">Concluído</span></td></tr><tr><td>Direito Penal #03</td><td>40</td><td>32 (80%)</td><td>Ontem</td><td><span class="badge ok">Concluído</span></td></tr></table></div>
+</section>
+
+<section id="cronograma" class="page">
+<div class="section"><h2>Cronograma inteligente</h2><button class="btn primary" onclick="addStudy()">＋ Adicionar estudo</button></div>
+<div class="card"><div class="grid g3"><div><span class="badge ok">SEG • 20/09</span><h3>Português</h3><p class="label">30 questões • 40 min</p><button class="btn ghost" onclick="startTimer()">Iniciar foco</button></div><div><span class="badge">TER • 21/09</span><h3>Direito Penal</h3><p class="label">Lei seca • 45 min</p><button class="btn ghost">Abrir aula</button></div><div><span class="badge orange">QUA • 22/09</span><h3>Legislação GCM</h3><p class="label">Revisão • 50 min</p><button class="btn ghost">Abrir revisão</button></div></div></div>
+<div class="section"><h2>Foco de hoje</h2></div><div class="card"><div class="timer" id="timer">25:00</div><div class="timerActions"><button class="btn primary" onclick="startTimer()">Iniciar</button><button class="btn ghost" onclick="resetTimer()">Resetar</button></div><p class="label" style="text-align:center">Pomodoro • 25 minutos de concentração</p><div id="studyTasks" class="prep-list"></div></div>
+</section>
+
+<section id="calendario" class="page">
+<div class="section"><h2>Calendário de estudos</h2><button class="btn primary" onclick="addStudy()">＋ Novo estudo</button></div>
+<div class="card">
+  <div class="calendar-head"><button class="circle" onclick="changeMonth(-1)">‹</button><h3 id="monthTitle">Setembro 2026</h3><button class="circle" onclick="changeMonth(1)">›</button></div>
+  <div class="calendar-grid" id="calendarGrid"></div>
+</div>
+<div class="section"><h2>Próximos compromissos</h2></div>
+<div class="grid g3">
+  <div class="card"><span class="badge ok">HOJE</span><h3>Português</h3><p class="label">30 questões • 40 min</p></div>
+  <div class="card"><span class="badge">AMANHÃ</span><h3>Direito Penal</h3><p class="label">Lei seca • 45 min</p></div>
+  <div class="card"><span class="badge orange">22 SET</span><h3>Simulado GCM</h3><p class="label">50 questões • 2h</p></div>
+</div>
+</section>
+
+<section id="desempenho" class="page">
+<div class="section"><h2>Meu desempenho</h2><span class="badge ok">Evolução acompanhada</span></div>
+<div class="grid g4"><div class="card"><div class="label">Aproveitamento</div><div class="num">78%</div></div><div class="card"><div class="label">Questões</div><div class="num">428</div></div><div class="card"><div class="label">Simulados</div><div class="num">7</div></div><div class="card"><div class="label">Horas</div><div class="num">31h</div></div></div>
+<div class="grid g2" style="margin-top:15px"><div class="card"><b>Questões por dia</b><div class="chart"><div class="col"><i style="height:40%"></i><small>15</small></div><div class="col"><i style="height:58%"></i><small>22</small></div><div class="col"><i style="height:72%"></i><small>28</small></div><div class="col"><i style="height:51%"></i><small>20</small></div><div class="col"><i style="height:86%"></i><small>34</small></div><div class="col"><i style="height:64%"></i><small>25</small></div><div class="col"><i style="height:92%"></i><small>36</small></div></div></div><div class="card"><b>Pontos fortes e atenção</b><div style="margin-top:15px"><span class="badge ok">Ponto forte</span><h4 style="margin:7px 0">Legislação</h4><div class="bar"><i style="width:86%"></i></div></div><div style="margin-top:18px"><span class="badge orange">Reforçar</span><h4 style="margin:7px 0">Matemática</h4><div class="bar"><i style="width:63%"></i></div></div></div></div>
+</section>
+
+<section id="materiais" class="page">
+<div class="section"><h2>Biblioteca</h2><button class="btn primary" onclick="alert('Upload de PDF: estrutura preparada.')">＋ Enviar material</button></div>
+<div class="grid g3"><div class="card"><span class="badge">PDF</span><h3>Lei 13.022/2014</h3><p class="label">Estatuto Geral das Guardas Municipais</p><button class="btn ghost">Abrir</button></div><div class="card"><span class="badge">RESUMO</span><h3>Caderno de revisão</h3><p class="label">Anotações e pontos-chave</p><button class="btn ghost">Abrir</button></div><div class="card"><span class="badge">MAPA MENTAL</span><h3>Direito Penal</h3><p class="label">Princípios e conceitos</p><button class="btn ghost">Abrir</button></div></div>
+</section>
+
+
+<section id="edital" class="page">
+<div class="section"><h2>Meu edital</h2><span class="badge ok">Base da sua preparação</span></div>
+<div class="card">
+  <div class="upload-zone" id="uploadZone">
+    <div class="upload-icon">PDF</div>
+    <h3>Anexe o edital do seu concurso</h3>
+    <p class="label">A IA vai usar o conteúdo do edital para organizar matérias, tópicos, revisões, questões e seu cronograma.</p>
+    <input type="file" id="editalFile" accept=".pdf,application/pdf" hidden>
+    <button class="btn primary" onclick="document.getElementById('editalFile').click()">＋ Selecionar edital em PDF</button> <button class="btn ghost" onclick="clearEdital()">Limpar edital</button>
+    <div id="fileName" class="label" style="margin-top:10px"></div>
+    <div id="uploadStatus" style="margin-top:10px;font-weight:800"></div>
+  </div>
+</div>
+<div class="card" style="margin-top:15px">
+  <div class="section" style="margin:0 0 4px"><div><h2 style="margin:0">Configuração da sua preparação</h2><p class="label" style="margin:5px 0 0">Esses dados ajudam o Professor IA a montar um plano realista para você.</p></div><span class="badge">PERSONALIZADO</span></div>
+  <div class="setup-grid">
+    <div class="field"><label>Data da prova</label><input id="examDate" class="input" type="date"></div>
+    <div class="field"><label>Horas por dia</label><input id="hoursDay" class="input" type="number" min="0.5" max="12" step="0.5" value="2"></div>
+    <div class="field"><label>Dias de estudo por semana</label><input id="daysWeek" class="input" type="number" min="1" max="7" value="6"></div>
+    <div class="field"><label>Objetivo principal</label><select id="studyGoal" class="input"><option value="aprovar">Chegar preparado para a prova</option><option value="base">Construir base forte</option><option value="revisao">Focar em revisão e questões</option></select></div>
+  </div>
+  <button class="btn primary" style="margin-top:13px" onclick="saveStudySettings()">Salvar minha preparação</button>
+</div>
+<div class="card" style="margin-top:15px;border:2px solid #d7e5ff;background:linear-gradient(135deg,#f8fbff,#ffffff)">
+  <div class="section" style="margin:0 0 8px"><div><h2 style="margin:0">Organização automática do edital</h2><p class="label" style="margin:5px 0 0">Depois de anexar o PDF, o Professor IA divide o edital em matérias, assuntos e prioridades e transforma isso em um plano de estudos.</p></div><button class="btn primary" id="organizeBtn" onclick="organizeEdital()">✦ Organizar meu edital</button></div>
+  <div id="studyPlan" class="plan-grid">
+    <div class="empty">Anexe o edital e clique em <b>Organizar meu edital</b>. A estrutura das matérias aparecerá aqui.</div>
+  </div>
+</div>
+<div class="grid g2" style="margin-top:15px">
+  <div class="card">
+    <h3>O que o Professor IA fará com seu edital</h3>
+    <div class="task"><span>✓</span><div><b>Mapear o conteúdo</b><div class="label">Identificar disciplinas, assuntos, pesos e etapas.</div></div></div>
+    <div class="task"><span>✓</span><div><b>Montar seu plano</b><div class="label">Criar uma rotina de estudos baseada no conteúdo.</div></div></div>
+    <div class="task"><span>✓</span><div><b>Gerar questões</b><div class="label">Criar exercícios focados nos assuntos do edital.</div></div></div>
+    <div class="task"><span>✓</span><div><b>Revisar seus erros</b><div class="label">Explicar dúvidas e reforçar os pontos fracos.</div></div></div>
+  </div>
+  <div class="card">
+    <h3>Status do edital</h3>
+    <div id="editalStatusCard" class="empty">Nenhum edital conectado ainda.</div>
+    <button class="btn ghost" onclick="go('ia')">Conversar com o Professor IA →</button>
+  </div>
+</div>
+</section>
+
+
+<section id="preparacao" class="page">
+<div class="section"><h2>Minha preparação</h2><span class="badge ok">Plano pessoal</span></div>
+<div class="grid g4"><div class="card"><div class="label">Progresso do edital</div><div class="num" id="prepProgress">0%</div><div class="bar" style="margin-top:10px"><i id="prepProgressBar" style="width:0%"></i></div></div><div class="card"><div class="label">Tópicos estudados</div><div class="num" id="prepTopics">0</div></div><div class="card"><div class="label">Questões de hoje</div><div class="num" id="prepQs">0/30</div></div><div class="card"><div class="label">Tempo planejado</div><div class="num" id="prepHours">0h</div></div></div>
+<div class="section"><h2>Plano de hoje</h2><button class="link" onclick="go('cronograma')">Abrir cronograma →</button></div>
+<div class="card"><div id="todayPlan" class="empty">Anexe seu edital e salve suas preferências para gerar um plano personalizado.</div></div>
+<div class="section"><h2>Prioridades</h2></div><div class="grid g3"><div class="card"><span class="badge red">ALTA</span><h3 id="priority1">Aguardando edital</h3><p class="label">Assunto recomendado pela análise da IA.</p></div><div class="card"><span class="badge orange">MÉDIA</span><h3 id="priority2">Revisões</h3><p class="label">Serão definidas conforme seus erros.</p></div><div class="card"><span class="badge ok">FORTE</span><h3 id="priority3">Seus acertos</h3><p class="label">A IA preservará o que você já domina.</p></div></div>
+</section>
+
+<section id="ia" class="page">
+<div class="section"><h2>Professor IA</h2><span class="badge ok" id="aiStatus">Verificando conexão…</span></div>
+<div class="grid g2">
+  <div class="card">
+    <div class="chat" id="chat">
+      <div class="msg ai"><b>Professor IA</b><br>Olá! Eu sou o assistente de estudos da AprovaPro. Anexe seu edital e eu posso trabalhar em cima dele: explicar conteúdos, criar questões, montar revisões, analisar seu desempenho e ajudar a organizar seu cronograma.</div>
+    </div>
+    <div class="chatbar">
+      <input id="chatInput" class="input" placeholder="Pergunte sobre o edital ou qualquer matéria..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="btn primary" onclick="sendChat()">Enviar</button>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Atalhos inteligentes</h3>
+    <button class="ai-action" onclick="quickAI('Analise meu edital e liste todas as disciplinas e tópicos em uma tabela.')">📋 Analisar edital</button>
+    <button class="ai-action" onclick="quickAI('Monte meu cronograma de estudos para os próximos 7 dias usando o edital conectado.')">📅 Montar cronograma</button>
+    <button class="ai-action" onclick="quickAI('Crie 10 questões de múltipla escolha baseadas nos tópicos mais importantes do meu edital.')">📝 Criar questões</button>
+    <button class="ai-action" onclick="quickAI('Faça uma revisão dos pontos que eu mais preciso estudar.')">🎯 Criar revisão</button>
+    <button class="ai-action" onclick="quickAI('Explique este assunto como se eu estivesse começando agora, com exemplos e uma questão no final.')">🧠 Explicar matéria</button>
+  </div>
+</div>
+<div class="card" style="margin-top:15px">
+  <div class="section" style="margin:0 0 8px"><h3 style="margin:0">Como a IA vai administrar seus estudos</h3><span class="badge">Modo concurso</span></div>
+  <div class="grid g3">
+    <div><b>1. Entende seu edital</b><p class="label">Usa o PDF conectado como contexto.</p></div>
+    <div><b>2. Acompanha sua evolução</b><p class="label">Pode receber seus resultados e erros.</p></div>
+    <div><b>3. Ajusta sua rotina</b><p class="label">Sugere o próximo estudo conforme seu progresso.</p></div>
+  </div>
+</div>
+</section>
+
+
+<div class="footer">AprovaPro • Plataforma profissional de estudos para concursos • Painel, edital, cronograma, questões, simulados e Professor IA.</div>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modalBox"><button class="close" onclick="closeModal()">×</button><h2>Configurar meu concurso</h2><p class="label">Escolha o edital que será usado para personalizar seu painel.</p><label class="label">Concurso</label><select id="contest" class="input" style="margin:6px 0 12px"><option>Guarda Civil Municipal de Mandaguari–PR</option><option>Polícia Penal do Paraná</option><option>Outro concurso</option></select><label class="label">Banca</label><input class="input" value="Fafipa" style="margin:6px 0 12px"><button class="btn primary" onclick="saveContest()">Salvar configuração</button></div></div>
+
+<script>
+const pages=[...document.querySelectorAll('.page')];
+function go(id){
+  const target=document.getElementById(id);
+  if(!target)return;
+  pages.forEach(p=>p.classList.toggle('active',p.id===id));
+  document.querySelectorAll('[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===id));
+  closeSidebar();
+  window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('ap-page',id);
+  if(id==='calendario') renderCalendar();
+}
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+function openSidebar(){document.querySelector('.sidebar').classList.add('open');document.getElementById('sideOverlay').classList.add('open')}
+function closeSidebar(){document.querySelector('.sidebar').classList.remove('open');document.getElementById('sideOverlay').classList.remove('open')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSidebar();closeModal()}}); document.getElementById('modal')?.addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+function doneTask(el){el.classList.toggle('done');el.querySelector('.check').textContent=el.classList.contains('done')?'✓':''; saveTasks(); updateDashboardProgress()}
+function saveTasks(){localStorage.setItem('ap-tasks',JSON.stringify([...document.querySelectorAll('.task')].map(x=>x.classList.contains('done'))))}
+function restoreTasks(){try{const a=JSON.parse(localStorage.getItem('ap-tasks')||'[]');document.querySelectorAll('.task').forEach((x,i)=>{if(a[i]){x.classList.add('done');x.querySelector('.check').textContent='✓'}})}catch{}}
+function updateDashboardProgress(){const all=[...document.querySelectorAll('.task')];const done=all.filter(x=>x.classList.contains('done')).length;const pct=all.length?Math.round(done/all.length*100):0;document.querySelectorAll('.mini-progress i').forEach(x=>x.style.width=pct+'%')}
+function answer(el,good){document.querySelectorAll('.option').forEach(x=>x.classList.remove('good','bad'));el.classList.add(good?'good':'bad');document.getElementById('feedback').innerHTML=good?'✅ Correto! Princípio da legalidade.':'❌ Revise: o princípio da legalidade exige previsão legal anterior.'}
+function nextQ(){document.getElementById('feedback').innerHTML='🔄 Próxima questão carregada. O banco real pode ser conectado nesta etapa.';document.querySelectorAll('.option').forEach(x=>x.classList.remove('good','bad'))}
+function newQuestion(){notifyToast('Filtros aplicados. O próximo passo é conectar o banco de questões ao edital.')}
+function startSimulado(){notifyToast('Simulado iniciado.');go('questoes')}
+function addStudy(){const title=prompt('Qual atividade você quer adicionar?');if(!title)return;let box=document.getElementById('studyTasks');if(!box){box=document.createElement('div');box.id='studyTasks';box.className='prep-list';document.querySelector('#cronograma .card:last-child')?.appendChild(box)}const d=document.createElement('div');d.className='task';d.innerHTML='<button class="check" onclick="doneTask(this.parentElement)"></button><div><b>'+safe(title)+'</b><div class="label">Atividade adicionada ao seu cronograma.</div></div>';box.appendChild(d);saveTasks();updateDashboardProgress();notifyToast('Atividade adicionada ao cronograma.')}
+function notify(){notifyToast('Você tem 3 lembretes: revisão de Penal, 30 questões de Português e simulado pendente.')}
+function notifyToast(msg){let t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;right:20px;bottom:20px;z-index:100;background:#0d1b38;color:#fff;padding:13px 16px;border-radius:12px;box-shadow:0 12px 35px #0004;font-weight:800;font-size:13px;max-width:360px';document.body.appendChild(t)}t.textContent=msg;t.style.display='block';clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.style.display='none',3200)}
+function openModal(){document.getElementById('modal').classList.add('open')}function closeModal(){document.getElementById('modal').classList.remove('open')}
+function saveContest(){localStorage.setItem('contest',document.getElementById('contest').value);const banca=document.querySelector('#modal input');if(banca)localStorage.setItem('banca',banca.value.trim());closeModal();notifyToast('Configuração do concurso salva.')}
+let timer=Number(localStorage.getItem('ap-timer')||1500),interval=null;
+function renderTimer(){let m=String(Math.floor(timer/60)).padStart(2,'0'),s=String(timer%60).padStart(2,'0');document.getElementById('timer').textContent=m+':'+s}
+function startTimer(){if(interval)return;interval=setInterval(()=>{if(timer<=0){clearInterval(interval);interval=null;alert('Tempo concluído!');return}timer--;localStorage.setItem('ap-timer',timer);renderTimer()},1000)}
+function resetTimer(){clearInterval(interval);interval=null;timer=1500;localStorage.setItem('ap-timer',timer);renderTimer()}
+
+let editalFileId = localStorage.getItem('ap-edital-file-id') || '';
+let editalFileName = localStorage.getItem('ap-edital-name') || '';
+
+async function uploadEdital(file){
+  const status=document.getElementById('uploadStatus'), name=document.getElementById('fileName');
+  name.textContent=file.name;
+  if(file.type!=='application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){
+    status.innerHTML='❌ Selecione um arquivo PDF.'; return;
+  }
+  if(file.size>50*1024*1024){status.innerHTML='❌ O arquivo deve ter no máximo 50 MB nesta interface.';return;}
+  status.innerHTML='⏳ Enviando edital e preparando a IA...';
+  try{
+    const fd=new FormData(); fd.append('file',file);
+    const r=await fetch('/api/upload-edital',{method:'POST',body:fd});
+    if(!r.ok) throw new Error(await r.text());
+    const data=await r.json();
+    editalFileId=data.file_id; editalFileName=file.name;
+    localStorage.setItem('ap-edital-file-id',editalFileId);
+    localStorage.setItem('ap-edital-name',editalFileName);
+    status.innerHTML='✅ Edital conectado à IA. Organizando suas matérias...';
+    updateEditalUI();
+    addMsg('Edital conectado: <b>'+safe(file.name)+'</b>. Vou dividir as matérias, assuntos e prioridades para montar sua preparação.','ai');
+    await organizeEdital();
+    status.innerHTML='✅ Edital conectado e plano de estudos organizado.';
+  }catch(e){
+    status.innerHTML='⚠️ Não foi possível conectar. Verifique se o servidor está ligado, a chave da OpenAI está configurada e se o PDF é válido.';
+    console.error(e);
+  }
+}
+async function sendChat(){
+  const input=document.getElementById('chatInput'), v=input.value.trim(); if(!v)return;
+  addMsg(v,'me'); input.value='';
+  const status=document.getElementById('aiStatus'); status.textContent='Pensando...';
+  try{
+    const r=await fetch('/api/ai',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:v,file_id:editalFileId})
+    });
+    if(!r.ok) throw new Error(await r.text());
+    const data=await r.json();
+    addMsg(safe(data.text || 'Não recebi uma resposta.'),'ai');
+  }catch(e){
+    addMsg('⚠️ Não consegui falar com o Professor IA. Verifique o servidor e a configuração da API.','ai');
+    console.error(e);
+  }finally{status.textContent='Pronto para estudar'}
+}
+
+async function organizeEdital(){
+  if(!editalFileId){
+    go('edital');
+    const status=document.getElementById('uploadStatus');
+    if(status) status.innerHTML='⚠️ Primeiro anexe o edital em PDF.';
+    return;
+  }
+  const btn=document.getElementById('organizeBtn');
+  const box=document.getElementById('studyPlan');
+  if(btn){btn.disabled=true;btn.textContent='⏳ Organizando edital...';}
+  if(box) box.innerHTML='<div class="empty">⏳ Estou lendo o edital e separando disciplinas, tópicos, prioridades e rotina de estudos...</div>';
+  try{
+    const prompt=`Analise profundamente o edital anexado e monte a organização dos meus estudos. Quero que você atue como administrador da minha preparação.
+
+Entregue exatamente nesta estrutura, em português:
+1. DISCIPLINAS: liste todas as disciplinas cobradas.
+2. TÓPICOS: para cada disciplina, liste os principais assuntos/tópicos previstos no edital.
+3. PRIORIDADE: classifique cada disciplina como ALTA, MÉDIA ou NORMAL considerando o que estiver documentado no edital (peso, número de questões, conteúdo ou relevância). Se o edital não informar peso, diga isso e não invente.
+4. DIVISÃO SEMANAL: distribua as disciplinas em uma rotina de 7 dias, alternando matérias e incluindo revisão e questões.
+5. CICLO DE ESTUDO: proponha uma sequência de matérias para repetir até a prova.
+6. PRÓXIMOS PASSOS: diga exatamente o que devo estudar primeiro.
+
+Não invente disciplinas ou conteúdos que não estejam no edital. Se alguma informação não estiver disponível, informe claramente.`;
+    const r=await fetch('/api/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:prompt,file_id:editalFileId})});
+    if(!r.ok) throw new Error(await r.text());
+    const data=await r.json();
+    renderStudyPlan(data.text||'Não foi possível gerar o plano.');
+    localStorage.setItem('ap-study-plan',data.text||'');
+  }catch(e){
+    if(box) box.innerHTML='<div class="empty">⚠️ Não consegui organizar agora. Verifique se o servidor do AprovaPro V4 está ligado e se a chave da OpenAI está configurada.</div>';
+    console.error(e);
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent='✦ Organizar meu edital';}
+  }
+}
+function renderStudyPlan(text){
+  const box=document.getElementById('studyPlan'); if(!box)return;
+  const lines=String(text).split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+  const cards=[]; let current={title:'Plano de estudos',items:[]};
+  lines.forEach(line=>{
+    const clean=line.replace(/^#+\s*/, '').replace(/^\*+|\*+$/g,'').trim();
+    const heading=/^(\d+[.)]\s*)?(DISCIPLINAS|TÓPICOS|PRIORIDADE|DIVISÃO SEMANAL|CICLO DE ESTUDO|PRÓXIMOS PASSOS)/i.test(clean);
+    if(heading){if(current.items.length)cards.push(current);current={title:clean,items:[]};}
+    else current.items.push(clean);
+  });
+  if(current.items.length)cards.push(current);
+  if(!cards.length){box.innerHTML='<div class="empty">'+safe(text)+'</div>';return;}
+  box.innerHTML=cards.map(c=>'<div class="plan-card"><h3>'+safe(c.title)+'</h3><div class="plan-content">'+c.items.map(x=>'<div class="plan-item">'+safe(x).replace(/^(\d+[.)]|[-•])\s*/,'')+'</div>').join('')+'</div></div>').join('');
+}
+
+function addMsg(t,c){let d=document.createElement('div');d.className='msg '+c;const text=safe(String(t)).replace(/\n/g,'<br>');d.innerHTML=(c==='me'?'<b>Você</b><br>':'<b>Professor IA</b><br>')+text;document.getElementById('chat').appendChild(d);document.getElementById('chat').scrollTop=99999}
+function safe(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;')}
+function quickAI(t){go('ia');document.getElementById('chatInput').value=t;sendChat()}
+function toggleTheme(){document.body.classList.toggle('darkmode');localStorage.setItem('ap-dark',document.body.classList.contains('darkmode')?'1':'0')}
+
+let calDate=new Date(new Date().getFullYear(),new Date().getMonth(),1);
+const months=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const events={2:[['Português','green']],7:[['Penal','']],12:[['Simulado','orange']],20:[['Português','green']],22:[['Simulado GCM','orange']],25:[['Legislação','']]};
+function renderCalendar(){
+  const grid=document.getElementById('calendarGrid'); if(!grid)return;
+  const y=calDate.getFullYear(),m=calDate.getMonth();
+  document.getElementById('monthTitle').textContent=months[m]+' '+y;
+  grid.innerHTML='';
+  ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(d=>{const x=document.createElement('div');x.className='dow';x.textContent=d;grid.appendChild(x)});
+  const first=new Date(y,m,1).getDay(), days=new Date(y,m+1,0).getDate(), prevDays=new Date(y,m,0).getDate();
+  for(let i=0;i<42;i++){
+    const cell=document.createElement('div'); cell.className='day';
+    let n=i-first+1, cm=m, cy=y;
+    if(n<1){n=prevDays+n;cm=m-1;if(cm<0){cm=11;cy--};cell.classList.add('muted-day')}
+    if(n>days){n=n-days;cm=m+1;if(cm>11){cm=0;cy++};cell.classList.add('muted-day')}
+    const now=new Date();const today=(cy===now.getFullYear()&&cm===now.getMonth()&&n===now.getDate()); if(today)cell.classList.add('today');
+    cell.innerHTML='<b>'+n+'</b>';
+    if(cm===m && events[n]) events[n].forEach(ev=>{const e=document.createElement('span');e.className='event '+ev[1];e.textContent=ev[0];cell.appendChild(e)});
+    grid.appendChild(cell);
+  }
+}
+function changeMonth(step){calDate.setMonth(calDate.getMonth()+step);renderCalendar()}
+
+
+function updateEditalUI(){
+  const n=localStorage.getItem('ap-edital-name')||editalFileName;
+  const card=document.getElementById('editalStatusCard');
+  if(card && n) card.innerHTML='<span class="badge ok">CONECTADO</span><h3>'+safe(n)+'</h3><p class="label">Este edital está disponível como contexto para o Professor IA.</p>';
+  const f=document.getElementById('fileName'); if(f&&n)f.textContent=n;
+  const dn=document.getElementById('dashboardEditalName'), dt=document.getElementById('dashboardEditalText');
+  if(dn) dn.textContent=n||'Nenhum edital conectado';
+  if(dt) dt.textContent=n?'Edital conectado. Use o Professor IA para organizar disciplinas, tópicos, revisões e cronograma.':'Anexe seu edital para o Professor IA transformar o conteúdo em uma preparação organizada.';
+  const ps=document.getElementById('planStatus'); if(ps) ps.textContent=n&&localStorage.getItem('ap-study-plan')?'100%':'0%';
+  const pd=document.getElementById('planDonut'); if(pd) pd.style.background='conic-gradient(#2468e8 '+(n&&localStorage.getItem('ap-study-plan')?'100%':'0%')+',#e9eef5 0)';
+}
+function clearEdital(){
+  editalFileId=''; editalFileName='';
+  localStorage.removeItem('ap-edital-file-id');localStorage.removeItem('ap-edital-name');localStorage.removeItem('ap-study-plan');
+  const f=document.getElementById('editalFile');if(f)f.value='';
+  const n=document.getElementById('fileName');if(n)n.textContent='';
+  const st=document.getElementById('uploadStatus');if(st)st.textContent='Edital desconectado deste navegador.';
+  const box=document.getElementById('studyPlan');if(box)box.innerHTML='<div class="empty">Anexe o edital e clique em <b>Organizar meu edital</b>.</div>';
+  updateEditalUI();
+}
+async function checkHealth(){
+  const el=document.getElementById('aiStatus'); if(!el)return;
+  try{const r=await fetch('/api/health');const d=await r.json(); if(d.ok&&d.ai){el.textContent='IA conectada';el.classList.add('ok')}else{el.textContent='IA não configurada';el.classList.remove('ok')}}
+  catch(e){el.textContent='Servidor offline';el.classList.remove('ok')}
+}
+
+
+function runSearch(){const q=document.getElementById('search')?.value.trim().toLowerCase();if(!q)return;const terms=[...document.querySelectorAll('.page h1,.page h2,.page h3,.page b,.page .label')];const hit=terms.find(x=>(x.textContent||'').toLowerCase().includes(q));if(hit){let p=hit.closest('.page');if(p)go(p.id);hit.scrollIntoView({behavior:'smooth',block:'center'});notifyToast('Resultado encontrado: '+hit.textContent.trim().slice(0,70));}else notifyToast('Nenhum resultado encontrado.');}
+document.getElementById('search')?.addEventListener('keydown',e=>{if(e.key==='Enter')runSearch()});
+document.getElementById('editalFile')?.addEventListener('change',e=>{if(e.target.files[0])uploadEdital(e.target.files[0])});
+const uz=document.getElementById('uploadZone');
+if(uz){
+  ['dragenter','dragover'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();uz.classList.add('drag')}));
+  ['dragleave','drop'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();uz.classList.remove('drag')}));
+  uz.addEventListener('drop',e=>{if(e.dataTransfer.files[0])uploadEdital(e.dataTransfer.files[0])});
+}
+const savedContest=localStorage.getItem('contest'); if(savedContest){const c=document.getElementById('contest'); if(c)c.value=savedContest;} const savedBanca=localStorage.getItem('banca'); if(savedBanca){const bi=document.querySelector('#modal input'); if(bi)bi.value=savedBanca;}
+updateEditalUI();
+restoreTasks();updateDashboardProgress();if(localStorage.getItem('ap-dark')==='1')document.body.classList.add('darkmode');
+const savedPlan=localStorage.getItem('ap-study-plan'); if(savedPlan) renderStudyPlan(savedPlan);
+
+const saved=localStorage.getItem('ap-page');
+renderCalendar();if(saved&&document.getElementById(saved))go(saved);checkHealth();
+
+// V7: preparação personalizada e persistência
+function saveStudySettings(){
+  const data={examDate:document.getElementById('examDate')?.value||'',hoursDay:Number(document.getElementById('hoursDay')?.value||2),daysWeek:Number(document.getElementById('daysWeek')?.value||6),goal:document.getElementById('studyGoal')?.value||'aprovar'};
+  localStorage.setItem('ap-study-settings',JSON.stringify(data)); notifyToast('Sua preparação foi salva. O próximo plano usará essas preferências.'); renderPreparation();
+}
+function loadStudySettings(){try{const d=JSON.parse(localStorage.getItem('ap-study-settings')||'{}'); if(d.examDate)document.getElementById('examDate').value=d.examDate; if(d.hoursDay)document.getElementById('hoursDay').value=d.hoursDay; if(d.daysWeek)document.getElementById('daysWeek').value=d.daysWeek; if(d.goal)document.getElementById('studyGoal').value=d.goal;}catch(e){}}
+function renderPreparation(){
+  const plan=localStorage.getItem('ap-study-plan')||''; const edital=localStorage.getItem('ap-edital-name')||''; const settings=(()=>{try{return JSON.parse(localStorage.getItem('ap-study-settings')||'{}')}catch{return {}}})();
+  const pct=Number(localStorage.getItem('ap-plan-progress')||0); const pb=document.getElementById('prepProgress'); const bar=document.getElementById('prepProgressBar'); if(pb)pb.textContent=pct+'%'; if(bar)bar.style.width=pct+'%';
+  const h=Number(settings.hoursDay||2); const ph=document.getElementById('prepHours'); if(ph)ph.textContent=(h%1?h.toFixed(1):h)+'h';
+  const today=document.getElementById('todayPlan'); if(today){if(edital){today.innerHTML='<div class="priority"><span class="dot"></span><div><b>Bloco principal</b><div class="label">Estudar o tópico prioritário do edital por '+(Math.round(h*20))+' min.</div></div></div><div class="priority"><span class="dot warn"></span><div><b>Questões</b><div class="label">Resolver 20–30 questões do assunto estudado.</div></div></div><div class="priority"><span class="dot red"></span><div><b>Revisão</b><div class="label">Revisar erros e anotações antes de encerrar.</div></div></div>';}else today.innerHTML='<div class="empty">Ainda não há edital conectado. <button class="btn primary" onclick="go(\'edital\')">Anexar edital</button></div>';}
+  const focus=document.getElementById('smartFocus'); if(focus)focus.textContent=edital?'Analisar o próximo tópico prioritário':'Anexe o edital para definir';
+  const time=document.getElementById('smartTime'); if(time)time.textContent=(h%1?h.toFixed(1):h)+'h planejadas';
+}
+function updatePlanFromAI(){localStorage.setItem('ap-plan-progress','10'); renderPreparation();}
+const __oldOrganize=window.organizeEdital;
+window.organizeEdital=async function(){await __oldOrganize(); updatePlanFromAI(); renderPreparation();};
+window.addEventListener('load',()=>{loadStudySettings();renderPreparation();});
+
+</script>
+</body>
+</html>
